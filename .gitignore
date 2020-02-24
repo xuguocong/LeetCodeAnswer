@@ -1,0 +1,10 @@
+#忽略的文件夹及其子目录
+password
+test
+
+#部分忽略的文件
+5manacher.cpp
+
+#过滤exe文件
+*.exe
+
