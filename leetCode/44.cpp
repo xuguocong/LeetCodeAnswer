@@ -52,8 +52,44 @@ using namespace std;
 
 class Solution {
 public:
-    bool isMatch(string s, string p) {
+    bool isMatch_dp(string s, string p) {
+        if (p == s || p == "*") return true;
+        if (p.empty() || s.empty()) return false;
+        vector<vector<bool>> dp(s.length() + 1, vector<bool>(p.length() + 1, false));
+        dp[0][0] = true;
+        for (int i = 1; i <= p.length(); ++i){
+            if(p[i - 1] == '*' && dp[0][i - 1]) dp[0][i] = dp[0][i - 1];
+        }
+        for(int i = 1; i <= s.length(); ++i) {
+            for(int j = 1; j <= p.length(); ++j) {
+                if(s[i-1] == p[j-1] || p[j-1] == '?') {
+                    dp[i][j] = dp[i-1][j-1];
+                } else if(p[j-1] == '*'){
+                    dp[i][j] = dp[i][j-1] || dp[i-1][j];
+                }
+            }
+        }
+        return dp[s.length()][p.length()];
+    }
 
+    bool isMatch_greedy(string s, string p) {
+        int i = 0, j = 0, sLen = s.length(), pLen = p.length(), iStar = -1, jStar = -1;
+        while(i < sLen) {
+            if(j < pLen && (s[i] == p[j] || p[j] == '?')) {
+                ++i;
+                ++j;
+            } else if(j < pLen && p[j] == '*') {
+                iStar = i;
+                jStar = j++;
+            } else if(iStar >= 0) {
+                i = ++iStar;
+                j = jStar + 1;
+            } else {
+                return false;
+            }
+        }
+        while (j < pLen && p[j] == '*') ++j;
+        return j == pLen;
     }
 };
 
