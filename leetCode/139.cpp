@@ -25,6 +25,8 @@
 #include<unordered_map>
 #include<vector>
 #include<string>
+#include<string.h>
+
 #include<algorithm>
 #include<stack>
 #include<queue>
@@ -34,7 +36,7 @@ using namespace std;
 class Solution {
 public:
     bool wordBreak(string s, vector<string>& wordDict) {
-        vector<bool> dp(s.length(), false);
+        vector<bool> dp(s.length() + 1, false);
         unordered_set<string> map(wordDict.begin(), wordDict.end());
 
         dp[0] = true;
@@ -48,6 +50,25 @@ public:
         }
         return dp[s.length()];
     }
+
+    bool wordBreak2(string s, vector<string>& wordDict) {
+        int validEnd = 0;
+        vector<bool> dp(s.length() + 1, false);
+        dp[0] = true;
+        for(int i = 0; i < s.length(); ++i) {
+            if(i == validEnd + 1) return false;
+            if(!dp[i]) continue;
+            for(auto& word : wordDict) {
+                int newEnd = i + word.size();
+                if(newEnd > s.size()) continue;
+                if(memcmp(&s[i], &word[0], word.size()) == 0) {
+                    dp[newEnd] = true;
+                    validEnd = max(validEnd, newEnd);
+                }
+            }
+        }
+        return dp.back();
+    }
 };
 
 
@@ -55,6 +76,6 @@ int main() {
     Solution test;
     string s = "applepenapple";
     vector<string> w = {"apple","pen"};
-    test.wordBreak(s, w);
+    test.wordBreak2(s, w);
     return 0;
 }
