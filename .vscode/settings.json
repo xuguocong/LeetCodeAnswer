@@ -42,6 +42,9 @@
         "unordered_map": "cpp",
         "queue": "cpp",
         "set": "cpp",
-        "stack": "cpp"
+        "stack": "cpp",
+        "bitset": "cpp",
+        "unordered_set": "cpp",
+        "*.tcc": "cpp"
     }
 }
