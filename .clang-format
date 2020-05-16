@@ -6,7 +6,7 @@ AccessModifierOffset:	-4
 # 开括号(开圆括号、开尖括号、开方括号)后的对齐: Align, DontAlign, AlwaysBreak(总是在开括号后换行)
 AlignAfterOpenBracket:	Align
 # 连续赋值时，对齐所有等号
-AlignConsecutiveAssignments:	true
+AlignConsecutiveAssignments:	false
 # 连续声明时，对齐所有声明的变量名
 AlignConsecutiveDeclarations:	false
  
@@ -89,7 +89,7 @@ BreakBeforeTernaryOperators:	false
 BreakConstructorInitializersBeforeComma:	false
 BreakConstructorInitializers: BeforeColon
 # 每行字符的限制，0表示没有限制
-ColumnLimit:	80
+ColumnLimit:	0
 # 描述具有特殊意义的注释的正则表达式，它不应该被分割为多行或以其它方式改变
 CommentPragmas:	'^ IWYU pragma:'
 CompactNamespaces: false
